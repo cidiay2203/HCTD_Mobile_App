@@ -1,0 +1,16 @@
+export const IMAGES = {
+    logo: require('../assets/images/logo.png'),
+    home_background: require('../assets/images/home-background.png'),
+    home_cover: require('../assets/images/home-cover.jpg'),
+    blood_group: require('../assets/images/BloodGroup.png'),
+    menu: require('../assets/images/menu.png'),
+    onboarding1: require('../assets/images/onboarding/pana.png'),
+    onboarding2: require('../assets/images/onboarding/rafiki.png'),
+    onboarding3: require('../assets/images/onboarding/bro.png'),
+    onboarding4: require('../assets/images/onboarding/Group_44.png'),
+    onboarding5: require('../assets/images/onboarding/success.png'),
+    slider1: require('../assets/images/onboarding/pana.png'),
+    slider2: require('../assets/images/onboarding/rafiki.png'),
+    slider3: require('../assets/images/onboarding/bro.png'),
+    slider4: require('../assets/images/onboarding/Group_44.png'),
+};

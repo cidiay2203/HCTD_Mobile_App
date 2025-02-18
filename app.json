@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "Moi giot mau mot tam long KH",
+    "slug": "MoiGiotMauMotTamLongKH",
+    "version": "1.0.4",
+    "orientation": "portrait",
+    "icon": "./assets/images/icon.png",
+    "scheme": "myapp",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "vn.org.moigiotmaumottamlongkh.mobile",
+      "buildNumber": "4"
+    },
+    "android": {
+      "package": "vn.org.moigiotmaumottamlongkh.mobile",
+      "versionCode": 4,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-barcode-scanner"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "owner": "lonny123",
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "3ba11cbf-ce96-41bb-94fd-6c916449a364"
+      }
+    }
+  }
+}
