@@ -24,7 +24,6 @@
     "buffer": "^6.0.3",
     "eas-cli": "^15.0.10",
     "expo": "~52.0.35",
-    "expo-barcode-scanner": "^13.0.1",
     "expo-camera": "~16.0.16",
     "expo-dev-client": "~5.0.12",
     "expo-document-picker": "~13.0.3",
