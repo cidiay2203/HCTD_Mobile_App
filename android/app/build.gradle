@@ -1,6 +1,7 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
+apply plugin: "kotlin-android"
 
 def projectRoot = rootDir.getAbsoluteFile().getParentFile().getAbsolutePath()
 
@@ -86,7 +87,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.moigiotmaumottamlongkh"
+    namespace "vn.org.moigiotmaumottamlongkh.mobile"
     defaultConfig {
         applicationId 'vn.org.moigiotmaumottamlongkh.mobile'
         minSdkVersion rootProject.ext.minSdkVersion
