@@ -26,4 +26,8 @@ export const COLORS = {
     tabIconDefault: '#9BA1A6',
     tabIconSelected: tintColorDark,
   },
+
+  RED: '#FF4D4D',    // Đỏ
+  YELLOW: '#FFD700', // Vàng
+  GREEN: '#28A745',  // Xanh lá
 };

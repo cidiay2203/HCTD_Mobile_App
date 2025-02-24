@@ -45,7 +45,7 @@ export default function TieuChuanKhenThuongScreen(){
     const [isLoading, setIsLoading] = useState(false);
     const [data, setData] = useState([]);
 
-    const getListThuMucTapTin = async () => {    
+    const getListThuMucTapTinIndex = async () => {    
         try {
             setIsLoading(true); // Bật trạng thái loading
             let response = null;
@@ -76,8 +76,8 @@ export default function TieuChuanKhenThuongScreen(){
       }
     
     useEffect(() => {
-        getListThuMucTapTin();
-    }, [])
+        getListThuMucTapTinIndex();
+    }, [params.itemId])
 
     const handleTapTin = (itemId: string) => {
         // navigation.push('file_detail', {
@@ -87,7 +87,7 @@ export default function TieuChuanKhenThuongScreen(){
 
     const handleThuMuc = (itemId: string) => {
         router.push({
-          pathname: "/(tieu-chuan-khen-thuong)",
+          pathname: "/(main)/(home)/(tieu-chuan-khen-thuong)",
           params: {itemId: itemId}
         });
       }

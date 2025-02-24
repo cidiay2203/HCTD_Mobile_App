@@ -40,6 +40,7 @@ export default function LoginScreen() {
 
     const username = getValues('username')
     const password = getValues('password')
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
     useEffect(() => {
         setIsWrongLogin(false);
@@ -124,9 +125,17 @@ export default function LoginScreen() {
                             theme={globalThemes.colorsPrimary}
                             style={styles.input}
                             label="Mật khẩu" 
-                            secureTextEntry={true}
+                            secureTextEntry={!isPasswordVisible}
                             autoCorrect={false} 
-                            mode="flat"/>
+                            mode="flat"
+                            right={
+                                <TextInput.Icon 
+                                    icon={isPasswordVisible ? "eye-off" : "eye"}
+                                    onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+                                />
+                            }
+                            />
+                            
                         }
                         name="password"
                     />

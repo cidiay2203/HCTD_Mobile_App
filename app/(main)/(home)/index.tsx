@@ -10,6 +10,7 @@ import {
   Alert
 } from 'react-native';
 import Slider from '@/app/(main)/(home)/SliderComponent';
+import ProfileInformation from './ProfileInformationComponent';
 import Body from './BodyComponent';
 import Donation from './DonationComponent';
 import {Button, Text} from "react-native-paper";
@@ -63,6 +64,7 @@ export default function HomeScreen() {
           data={[thongTinCaNhanNguoiHienMau]}
           ListHeaderComponent={() => (
             <View>
+              <ProfileInformation data={thongTinCaNhanNguoiHienMau}/>
               <Slider />
               <Body />
             </View>
