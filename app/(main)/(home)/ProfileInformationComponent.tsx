@@ -32,11 +32,11 @@ const getBloodDonationStatusColor = (
     const daysDiff = currentDate.diff(lastDonationDate, "days");
 
     if (daysDiff >= 84) {
-        return COLORS.GREEN; 
+        return COLORS.GREEN;
     } else if (daysDiff >= 70) {
         return COLORS.YELLOW;
     } else {
-        return COLORS.RED; 
+        return COLORS.RED;
     }
 };
 
@@ -52,12 +52,12 @@ const ProfileInformation = ({ data }: ProfileInformationProps) => {
             <View style={[styles.rowContainer]}>
                 <View style={styles.infoColumn}>
                     <View style={styles.card}>
-                        <Text style={styles.infoValue}>{data?.nhomMau || '_'}</Text>
                         <Text style={styles.infoLabel}>Nhóm máu</Text>
+                        <Text style={styles.infoValue}>{data?.nhomMau || '_'}</Text>
                     </View>
                     <View style={styles.card}>
-                        <Text style={styles.infoValue}>{data?.soLanHienMau || '_'}</Text>
                         <Text style={styles.infoLabel}>Số lần hiến</Text>
+                        <Text style={styles.infoValue}>{data?.soLanHienMau || '_'}</Text>
                     </View>
                 </View>
 
@@ -73,13 +73,13 @@ const ProfileInformation = ({ data }: ProfileInformationProps) => {
 
                 <View style={styles.infoColumn}>
                     <View style={styles.card}>
-                        <Text style={styles.infoValue}>{data?.canNang || '_'}</Text>
                         <Text style={styles.infoLabel}>Cân nặng</Text>
+                        <Text style={styles.infoValue}>{data?.canNang || '_'}</Text>
                     </View>
                     <View style={styles.card}>
-                        <Text style={styles.infoValue}>{data?.ngayHienMauCuoi || '_'}</Text>
                         <Text style={styles.infoLabel}>Ngày hiến máu gần nhất</Text>
                         <View style={[styles.statusBar, { backgroundColor: bloodDonationColor }]} />
+                        <Text style={styles.infoValue}>{data?.ngayHienMauCuoi || '_'}</Text>
                     </View>
                 </View>
             </View>
