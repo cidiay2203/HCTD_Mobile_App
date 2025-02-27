@@ -31,6 +31,7 @@ import {getProfile} from '@/storage';
 type UpdateFormData = {
   hoVaTen: string;
   gioiTinhId: string;
+  canNang: number;
   ngaySinh: string;
   soChungMinhNhanDan: string;
   noiCapCMNDId: string;
@@ -64,6 +65,7 @@ export default function UpdateProfileScreen() {
       soChungMinhNhanDan: '',
       noiCapCMNDId: '',
       gioiTinhId: '',
+      canNang: 0,
       dienThoaiDiDong: '',
       email: '',
       coQuanTruongLop: '',
@@ -200,6 +202,7 @@ export default function UpdateProfileScreen() {
         
         setValue('hoVaTen', thongTinCaNhanNguoiHienMau.hoVaTen);
         setValue('ngaySinh', thongTinCaNhanNguoiHienMau.ngaySinh);
+        setValue('canNang', thongTinCaNhanNguoiHienMau.canNang);
         setValue('soChungMinhNhanDan', thongTinCaNhanNguoiHienMau.CMND);
         setValue('noiCapCMNDId', thongTinCaNhanNguoiHienMau.noiCapCMNDId);
         setValue('gioiTinhId', thongTinCaNhanNguoiHienMau.gioiTinhId);
@@ -238,6 +241,7 @@ export default function UpdateProfileScreen() {
         profile.id,
         data.hoVaTen,
         data.ngaySinh, 
+        data.canNang,
         data.soChungMinhNhanDan,
         data.noiCapCMNDId,
         data.gioiTinhId,
@@ -314,6 +318,31 @@ export default function UpdateProfileScreen() {
                       errorMessage={errors.gioiTinhId?.message}
                     />
                   </View>
+                  <View style={styles.inputWrapper}>
+                    <Controller                      
+                        control={control}
+                        rules={{
+                          required: true,
+                        }}
+                        render={({field: {onChange, onBlur, value}}) => <TextInput
+                            onBlur={onBlur}
+                            onChangeText={onChange}
+                            value={value.toString()}
+                            keyboardType="decimal-pad"
+                            inputMode="decimal" 
+                            theme={globalThemes.colorsPrimary}
+                            selectionColor="red"
+                            style={styles.input} 
+                            label="Cân nặng" 
+                            mode="flat"
+                          />
+                        }
+                        name="canNang"
+                      />
+                      {errors.canNang && <HelperText padding="none" type="error" visible={true}>
+                        Cân nặng
+                    </HelperText>}
+                  </View> 
                   <View style={styles.inputWrapper}>
                     <Controller                      
                         control={control}

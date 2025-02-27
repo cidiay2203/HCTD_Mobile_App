@@ -116,13 +116,13 @@ const styles = StyleSheet.create({
     },
 
     infoValue: {
-        fontSize: 24,
+        fontSize: 14,
         fontFamily: FONTS.POPPINS_BOLD,
         textAlign: 'center',
     },
 
     infoLabel: {
-        fontSize: 14,
+        fontSize: 12,
         fontFamily: FONTS.POPPINS_REGULAR,
         textAlign: 'center',
     },

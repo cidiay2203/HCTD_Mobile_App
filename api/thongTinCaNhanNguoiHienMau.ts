@@ -25,7 +25,7 @@ export const getDanhSachLoaiKhenThuongDuDieuKienByThongTinCaNhanNguoiHienMauId =
 };
 
 export const capNhatThongTinCaNhanNguoiHienMauById = async (id: number, hoVaTen: string,
-  ngaySinh: string, soChungMinhNhanDan: string, noiCapCMNDId: string,
+  ngaySinh: string, canNang: number, soChungMinhNhanDan: string, noiCapCMNDId: string,
   gioiTinhId: string, dienThoaiDiDong: string, email: string,
   coQuanTruongLop: string, diaChiThuongTru: string, diaChiLienLac: string,
   ngheNghiepId: string, nganHangId: string, soTaiKhoanNganHang: string,
@@ -34,6 +34,7 @@ export const capNhatThongTinCaNhanNguoiHienMauById = async (id: number, hoVaTen:
     "Id": id,
     "HoVaTen": hoVaTen,
     "NgaySinh": ngaySinh,
+    "CanNang": canNang,
     "SoChungMinhNhanDan": soChungMinhNhanDan,
     "NoiCapCMNDId": noiCapCMNDId,
     "GioiTinhId": gioiTinhId,

@@ -35,6 +35,7 @@ export default function ProfileScreen() {
       }
 
       setData(res.data);
+
       if (res.data.hinhAnh) {
         setAvatar(API.BASE_URL + res.data.hinhAnh);
       }
@@ -147,11 +148,6 @@ export default function ProfileScreen() {
         </TouchableOpacity>
 
         <View style={styles.sectionHeader}><Text style={styles.sectionHeaderText}>Thông tin tổng quan</Text></View>
-
-        {/* <View style={[commonJustify.rowCenter, { marginVertical: 20 }]}>
-          <Icon name="map" />
-          <Text style={[commonStyle({ fontSize: 10, color: COLORS.LITE_DARK3 }).text, commonJustify.textCenter]}>{data.diaChiLienLac ? data.diaChiLienLac : '_'}</Text>
-        </View> */}
         <View style={commonJustify.rowSpaceEvenly}>
           <View style={styles.card}>
             <Text style={[commonStyle({ fontSize: 24, fontFamily: FONTS.POPPINS_BOLD }).text, { textAlign: 'center' }]}>{data.nhomMau ? data.nhomMau : '_'}</Text>
@@ -160,6 +156,10 @@ export default function ProfileScreen() {
           <View style={styles.card}>
             <Text style={[commonStyle({ fontSize: 24, fontFamily: FONTS.POPPINS_BOLD }).text, { textAlign: 'center' }]}>{data.soLanHienMau ? data.soLanHienMau : '_'}</Text>
             <Text style={[commonStyle({ fontSize: 14, fontFamily: FONTS.POPPINS_REGULAR }).text, { textAlign: 'center' }]}>Số lần hiến</Text>
+          </View>
+          <View style={styles.card}>
+            <Text style={[commonStyle({ fontSize: 24, fontFamily: FONTS.POPPINS_BOLD }).text, { textAlign: 'center' }]}>{data.canNang ? data.canNang : '_'}</Text>
+            <Text style={[commonStyle({ fontSize: 14, fontFamily: FONTS.POPPINS_REGULAR }).text, { textAlign: 'center' }]}>Cân nặng</Text>
           </View>
         </View>
 
