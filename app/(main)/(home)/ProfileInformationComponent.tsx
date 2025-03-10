@@ -1,156 +1,130 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Image, ToastAndroid } from "react-native";
-import { Avatar, ListItem } from '@rneui/themed';
+import React from "react";
+import { StyleSheet, Text, View } from "react-native";
+import { Avatar } from "@rneui/themed";
 import { COLORS, FONTS } from "@/constants";
-import { Icon } from "@rneui/base";
-import { commonJustify } from "@/shared/CommoStyle/CommonJustify";
-import { commonStyle } from "@/shared/CommoStyle/CommonStyle";
-import { router } from "expo-router";
-import { getThongTinCaNhanNguoiHienMauById, logout, uploadAvatar } from '@/api';
-import { getProfile } from '@/storage';
-import { Button, Headline, Subheading } from "react-native-paper";
-import ItemDetail from "@/components/ItemDetail";
-import { API } from '@/constants';
+import { API } from "@/constants";
 import moment from "moment";
 
+const getBloodDonationStatusColor = (ngayHienMauCuoi, duocPhepHienMau) => {
+  if (!duocPhepHienMau) return COLORS.RED;
+  if (!ngayHienMauCuoi) return COLORS.GREEN;
 
-type ProfileInformationProps = {
-    data: any;
+  const daysDiff = moment().diff(moment(ngayHienMauCuoi, "DD-MM-YYYY"), "days");
+  return daysDiff >= 84 ? COLORS.GREEN : daysDiff >= 70 ? COLORS.YELLOW : COLORS.RED;
 };
 
+const ProfileInformation = ({ data }) => {
+  const avatar = data?.hinhAnh ? { uri: API.BASE_URL + data.hinhAnh } : undefined;
+  const bloodDonationColor = getBloodDonationStatusColor(data.ngayHienMauCuoi, data.duocPhepHienMau);
 
-const getBloodDonationStatusColor = (
-    ngayHienMauCuoi: string,
-    duocPhepHienMau: Boolean
-) => {
-    if (duocPhepHienMau === false) return COLORS.RED;
+  return (
+    <View style={styles.container}>
+      {/* Header Profile */}
+      <View style={styles.profileHeader}>
+        <Avatar
+          size={110}
+          rounded
+          source={avatar}
+          icon={{ name: "user", type: "font-awesome" }}
+          containerStyle={styles.avatar}
+        />
+        <Text style={styles.name}>{data?.hoVaTen || ""}</Text>
+      </View>
 
-    if (!ngayHienMauCuoi && duocPhepHienMau === true) return COLORS.GREEN;
-
-    const lastDonationDate = moment(ngayHienMauCuoi, "DD-MM-YYYY");
-    const currentDate = moment();
-    const daysDiff = currentDate.diff(lastDonationDate, "days");
-
-    if (daysDiff >= 84) {
-        return COLORS.GREEN;
-    } else if (daysDiff >= 70) {
-        return COLORS.YELLOW;
-    } else {
-        return COLORS.RED;
-    }
-};
-
-const ProfileInformation = ({ data }: ProfileInformationProps) => {
-    const avatar = data?.hinhAnh ? API.BASE_URL + data.hinhAnh : null;
-    const bloodDonationColor = getBloodDonationStatusColor(
-        data.ngayHienMauCuoi,
-        data.duocPhepHienMau
-    );
-
-    return (
-        <View style={styles.container}>
-            <View style={[styles.rowContainer]}>
-                <View style={styles.infoColumn}>
-                    <View style={styles.card}>
-                        <Text style={styles.infoLabel}>Nhóm máu</Text>
-                        <Text style={styles.infoValue}>{data?.nhomMau || '_'}</Text>
-                    </View>
-                    <View style={styles.card}>
-                        <Text style={styles.infoLabel}>Số lần hiến</Text>
-                        <Text style={styles.infoValue}>{data?.soLanHienMau || '_'}</Text>
-                    </View>
-                </View>
-
-                <View style={styles.avatarContainer}>
-                    <Avatar
-                        size={100}
-                        rounded
-                        source={avatar ? { uri: avatar } : undefined}
-                        icon={{ name: 'user', type: 'font-awesome' }}
-                        containerStyle={{ backgroundColor: COLORS.PRIMARY }}
-                    />
-                </View>
-
-                <View style={styles.infoColumn}>
-                    <View style={styles.card}>
-                        <Text style={styles.infoLabel}>Cân nặng</Text>
-                        <Text style={styles.infoValue}>{data?.canNang || '_'}</Text>
-                    </View>
-                    <View style={styles.card}>
-                        <Text style={styles.infoLabel}>Ngày hiến máu gần nhất</Text>
-                        <View style={[styles.statusBar, { backgroundColor: bloodDonationColor }]} />
-                        <Text style={styles.infoValue}>{data?.ngayHienMauCuoi || '_'}</Text>
-                    </View>
-                </View>
-            </View>
+      {/* Thông tin chia thành 2 cột */}
+      <View style={styles.infoContainer}>
+        <View style={styles.row}>
+          <InfoCard label="Nhóm máu" value={data?.nhomMau} />
+          <InfoCard label="Số lần hiến" value={data?.soLanHienMau} />
         </View>
-
-    );
+        <View style={[styles.row, { marginBottom: 0 }]}>
+          <InfoCard label="Cân nặng" value={data?.canNang} />
+          <InfoCard
+            label="Ngày hiến gần nhất"
+            value={data?.ngayHienMauCuoi}
+            statusColor={bloodDonationColor}
+          />
+        </View>
+      </View>
+    </View>
+  );
 };
+
+const InfoCard = ({ label, value, statusColor }) => (
+  <View style={styles.card}>
+    <Text style={styles.infoLabel}>{label}</Text>
+    {statusColor && <View style={[styles.statusBar, { backgroundColor: statusColor }]} />}
+    <Text style={styles.infoValue}>{value || "_"}</Text>
+  </View>
+);
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: COLORS.WHITE },
-
-    rowContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-evenly',
-        marginVertical: 20,
-    },
-
-    avatarContainer: {
-        alignItems: 'center',
-        flex: 1,
-    },
-
-    infoColumn: {
-        flex: 1,
-        justifyContent: 'space-evenly',
-    },
-
-    card: {
-        backgroundColor: COLORS.WHITE,
-        padding: 10,
-        marginBottom: 10,
-        alignItems: 'center',
-    },
-
-    infoValue: {
-        fontSize: 14,
-        fontFamily: FONTS.POPPINS_BOLD,
-        textAlign: 'center',
-    },
-
-    infoLabel: {
-        fontSize: 12,
-        fontFamily: FONTS.POPPINS_REGULAR,
-        textAlign: 'center',
-    },
-
-    name: {
-        fontSize: 16,
-        color: COLORS.LITE_DARK3,
-        textAlign: 'center',
-        marginTop: 5,
-    },
-
-    sectionHeader: {
-        padding: 10,
-        backgroundColor: COLORS.LITE_GRAY,
-    },
-
-    sectionHeaderText: {
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-
-    statusBar: {
-        height: 8, // Độ dày của thanh màu
-        width: "100%", // Chiều rộng toàn bộ
-        borderRadius: 4,
-        marginTop: 5,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: COLORS.RED,
+    padding: 20,
+  },
+  profileHeader: {
+    alignItems: "center",
+    marginBottom: 20,
+  },
+  avatar: {
+    backgroundColor: COLORS.WHITE,
+    borderWidth: 2,
+    borderColor: COLORS.PRIMARY,
+    elevation: 5,
+  },
+  name: {
+    fontSize: 22, // tăng kích thước chữ
+    fontFamily: FONTS.POPPINS_BOLD,
+    color: COLORS.DARK_GRAY,
+    marginTop: 10,
+  },
+  infoContainer: {
+    backgroundColor: COLORS.WHITE,
+    borderRadius: 12,
+    padding: 15,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 6,
+    elevation: 4,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 15,
+  },
+  card: {
+    flex: 1,
+    backgroundColor: COLORS.WHITE,
+    padding: 12,
+    marginHorizontal: 5,
+    borderRadius: 10,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  infoLabel: {
+    fontSize: 14, // tăng kích thước chữ
+    fontFamily: FONTS.POPPINS_BOLD,
+    color: COLORS.GRAY,
+  },
+  infoValue: {
+    fontSize: 20, // tăng kích thước chữ
+    fontFamily: FONTS.POPPINS_BOLD,
+    color: COLORS.DARK_GRAY,
+    marginTop: 5,
+  },
+  statusBar: {
+    height: 6,
+    width: "100%",
+    borderRadius: 3,
+    marginTop: 5,
+  },
 });
-
 
 export default ProfileInformation;
